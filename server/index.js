@@ -33,15 +33,21 @@ app.use(urlencoded({ extended: true }));
 app.use(json());
 app.use(cookieParser());
 app.use(helmet());
-
+//=================================
+//             static files
+//=================================
 app.use("/uploads", express.static("uploads"));
-
+//=================================
+//             API
+//=================================
 app.use("/api/users", require("./routes/users"));
-
-app.use("/", require("./routes/globalRouter").default);
-app.use("/user", require("./routes/userRouter").default);
-app.use("/video", require("./routes/videoRouter").default);
-app.use("/test", require("./routes/testRouter").default);
+//=================================
+//             MVC
+//=================================
+app.use(require("./routes/globalRouter").default);
+app.use(require("./routes/userRouter").default);
+app.use(require("./routes/videoRouter").default);
+app.use(require("./routes/testRouter").default);
 
 //=================================
 //             web server
