@@ -7,4 +7,9 @@ router.get("/", (req, res) => {
   });
 });
 
-module.exports = router;
+// module.exports = router;
+
+module.exports = {
+  default: router,
+  mesg: "hi",
+};

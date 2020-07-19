@@ -1,14 +1,15 @@
-require("./env");
-const express = require("express");
-const app = express();
-const path = require("path");
-const cors = require("cors");
-const bodyParser = require("body-parser");
-const cookieParser = require("cookie-parser");
-const config = require("./config/key");
-const morgan = require("morgan");
-const helmet = require("helmet");
+import "./env";
+import { resolve } from "path";
+import express from "express";
+import cors from "cors";
+import { urlencoded, json } from "body-parser";
+import cookieParser from "cookie-parser";
+import morgan from "morgan";
+import helmet from "helmet";
 
+// import config from "./config/key";
+
+const app = express();
 //=================================
 //             mongoose
 //=================================
@@ -28,24 +29,27 @@ const helmet = require("helmet");
 
 app.use(morgan("dev"));
 app.use(cors());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+app.use(urlencoded({ extended: true }));
+app.use(json());
 app.use(cookieParser());
 app.use(helmet());
 
 app.use("/uploads", express.static("uploads"));
-app.use("/", require("./routes/globalRouter"));
-app.use("/user", require("./routes/userRouter "));
-app.use("/video", require("./routes/videoRouter "));
+
 app.use("/api/users", require("./routes/users"));
-app.use("/test", require("./routes/testRouter"));
+
+app.use("/", require("./routes/globalRouter").default);
+app.use("/user", require("./routes/userRouter").default);
+app.use("/video", require("./routes/videoRouter").default);
+app.use("/test", require("./routes/testRouter").default);
+
 //=================================
 //             web server
 //=================================
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
   app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "../client", "build", "index.html"));
+    res.sendFile(resolve(__dirname, "../client", "build", "index.html"));
   });
 }
 

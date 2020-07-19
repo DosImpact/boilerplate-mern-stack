@@ -1,10 +1,12 @@
-const express = require("express");
-const router = express.Router();
+import express from "express";
+import routes from "./_routes";
 
-router.get("/", (req, res) => {
-  res.status(200).json({
-    meg: "globalRouter",
-  });
-});
+const globalRouter = express.Router();
 
-module.exports = router;
+globalRouter.get(routes.home, (req, res) => res.send("Home"));
+globalRouter.get(routes.join, (req, res) => res.send("Join"));
+globalRouter.get(routes.login, (req, res) => res.send("Login"));
+globalRouter.get(routes.logout, (req, res) => res.send("Logout"));
+globalRouter.get(routes.search, (req, res) => res.send("Search"));
+
+export default globalRouter;
