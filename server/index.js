@@ -1,5 +1,5 @@
 import "./env";
-import { resolve } from "path";
+import path, { resolve } from "path";
 import express from "express";
 import cors from "cors";
 import { urlencoded, json } from "body-parser";
@@ -10,6 +10,9 @@ import helmet from "helmet";
 // import config from "./config/key";
 
 const app = express();
+
+app.set("views", path.join(process.cwd(), "server/views"));
+app.set("view engine", "pug");
 //=================================
 //             mongoose
 //=================================
@@ -33,6 +36,7 @@ app.use(urlencoded({ extended: true }));
 app.use(json());
 app.use(cookieParser());
 app.use(helmet());
+
 //=================================
 //             static files
 //=================================
