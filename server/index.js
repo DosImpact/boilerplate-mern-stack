@@ -33,9 +33,12 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(helmet());
 
-app.use("/api/users", require("./routes/users"));
-app.use("/test", require("./routes/test"));
 app.use("/uploads", express.static("uploads"));
+app.use("/", require("./routes/globalRouter"));
+app.use("/user", require("./routes/userRouter "));
+app.use("/video", require("./routes/videoRouter "));
+app.use("/api/users", require("./routes/users"));
+app.use("/test", require("./routes/testRouter"));
 //=================================
 //             web server
 //=================================
