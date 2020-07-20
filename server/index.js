@@ -48,6 +48,7 @@ app.use("/api/users", require("./routes/users"));
 //=================================
 //             MVC
 //=================================
+app.use(require("./middleware/localMiddlewares").default);
 app.use(require("./routes/globalRouter").default);
 app.use(require("./routes/userRouter").default);
 app.use(require("./routes/videoRouter").default);
